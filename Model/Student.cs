@@ -14,6 +14,7 @@
 
         public string Surname { get; set; }
 
+
         public int SpecialtiId { get; set; }
         public required Specialti Specialti { get; set; }
 
