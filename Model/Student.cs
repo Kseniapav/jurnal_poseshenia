@@ -1,4 +1,6 @@
-﻿namespace jurnal_poseshenia.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace jurnal_poseshenia.Model
 {
     public class Student
     {
@@ -12,7 +14,9 @@
         [StringLength(100, ErrorMessage = "Имя студента не может быть длиннее 100 символов")]
         public required string Name { get; set; }
 
-        public string Surname { get; set; }
+        [Required(ErrorMessage = "Укажите отчество студента.")]
+        [StringLength(100, ErrorMessage = "Отчество студента не может быть длиннее 100 символов")]
+        public required string Partomymic { get; set; }
 
 
         public int SpecialtiId { get; set; }

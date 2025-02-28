@@ -1,4 +1,6 @@
-﻿namespace jurnal_poseshenia.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace jurnal_poseshenia.Model
 {
     public class Specialti
     {
