@@ -16,5 +16,18 @@ namespace jurnal_poseshenia.Model
         public int SpecialtiId { get; set; }
         public required Specialti Specialti { get; set; }
 
+        [Required(ErrorMessage = "Укажите дату посещения")]
+        [DataType(DataType.Date)]
+        [Display(Name = "Дата посещения")]
+        public DateTime VisitDate { get; set; }
+        public ValidationResult ValidateVisitDate(ValidationContext validationContext)
+        {
+            if (VisitDate.DayOfWeek == DayOfWeek.Sunday)
+            {
+                return new ValidationResult("Воскресенье не учебный день, укажите другую дату");
+            }
+            return ValidationResult.Success;
+        }
+
     }
 }
