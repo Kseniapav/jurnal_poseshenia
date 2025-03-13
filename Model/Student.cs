@@ -20,7 +20,7 @@ namespace jurnal_poseshenia.Model
 
 
         public int SpecialtiId { get; set; }
-        public required Specialti Specialti { get; set; }
+        public Specialti Specialti { get; set; }
 
     }
 }
