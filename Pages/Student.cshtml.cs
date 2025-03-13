@@ -35,6 +35,7 @@ namespace jurnal_poseshenia.Pages
                 return Page();
             }
 
+
             if (Student.Id == 0)
             {
                 _context.Students.Add(Student);
@@ -43,6 +44,7 @@ namespace jurnal_poseshenia.Pages
             {
                 _context.Students.Update(Student);
             }
+
             _context.SaveChanges();
             return RedirectToPage("Students");
         }
