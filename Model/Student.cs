@@ -19,8 +19,8 @@ namespace jurnal_poseshenia.Model
         public required string Partomymic { get; set; }
 
 
-        public int SpecialtiId { get; set; }
-        public Specialti Specialti { get; set; }
+        public required int SpecialtiId { get; set; }
+        public required Specialti Specialti { get; set; }
 
     }
 }
