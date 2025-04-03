@@ -8,7 +8,7 @@ builder.Services.AddRazorPages();
 
 // Настройка подключения к базе данных
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("JurnalDatabase")));
+     options.UseSqlServer(builder.Configuration.GetConnectionString("JurnalDatabase")));
 
 var app = builder.Build();
 
