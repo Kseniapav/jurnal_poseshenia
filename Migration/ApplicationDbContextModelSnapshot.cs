@@ -3,6 +3,8 @@ using jurnal_poseshenia.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
+#nullable disable
+
 namespace jurnal_poseshenia.Migration
 {
     [DbContext(typeof(ApplicationDbContext))]
@@ -40,9 +42,9 @@ namespace jurnal_poseshenia.Migration
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                b.HasKey("SpecialtiId");
+                b.HasKey("Id");
 
-                b.ToTable("Specialti");
+                b.ToTable("Student");
 
             });
 
@@ -59,12 +61,10 @@ namespace jurnal_poseshenia.Migration
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                b.Property<string>("Partomymic")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                b.Property<int>("TermОfStudy")
+                       .HasColumnType("int");
 
-                b.HasKey("SpecialtiId");
+                b.HasKey("Id");
 
                 b.ToTable("Specialti");
 
@@ -83,15 +83,41 @@ namespace jurnal_poseshenia.Migration
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                b.Property<string>("Partomymic")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                b.Property<int>("StudentId")
+                        .HasColumnType("int");
 
-                b.HasKey("SpecialtiId");
+                b.Property<int>("SpecialtiId")
+                        .HasColumnType("int");
 
-                b.ToTable("Specialti");
+                b.HasKey("Id");
+
+                b.HasIndex("SpecialtiIdId");
+
+               b.HasIndex("StudentId");
+
+                b.ToTable("Jurnal");
 
             });
+
+            modelBuilder.Entity("StudentLibrary.Model.Jurnal", b =>
+            {
+                b.HasOne("StudentLibrary.Model.Specialti", "Specialti")
+                    .WithMany()
+                    .HasForeignKey("SpecialtiId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.HasOne("StudentLibrary.Model.Student", "Student")
+                    .WithMany()
+                    .HasForeignKey("StudentId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.Navigation("Specialti");
+
+                b.Navigation("Student");
+            });
+
+#pragma warning restore 612, 618
         }
-}   }
+    }   }
