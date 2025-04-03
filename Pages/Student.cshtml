@@ -3,3 +3,38 @@
 @{
     
 }
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h4 class="mb-0">Карточка студента</h4>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Имя:</label>
+                <input type="text" class="form-control" asp-for="Student.Name" required />
+                <span class="text-danger" asp-validation-for="Student.Name"></span>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Фамилия:</label>
+                <input type="Surname" class="form-control" asp-for="Student.Surname" />
+                <span class="text-danger" asp-validation-for="Student.Surname"></span>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Отчество:</label>
+                <input type="Partomymic" class="form-control" asp-for="Student.Partomymic" />
+                <span class="text-danger" asp-validation-for="Student.Partomymic"></span>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Специальность:</label>
+                <select class="form-select" asp-for="Student.Specialti">
+                    <option value="IT">IT</option>
+                    <option value="Logistician">Логист</option>
+                    <option value="Commodity specialist">Товаровед</option>
+                    <option value="Lawyer">Юрист</option>
+                    <option value="Electrician">Электрик</option>
+                    <option value="Accountant">Бухгалтер</option>
+                </select>
+            </div>
