@@ -24,7 +24,7 @@ namespace jurnal_poseshenia.Pages
             }
             else
             {
-                Student = new Student() { Name = "Имя", Surname = "Фамилия", Partomymic = "Отчество" };
+                Student = new Student();
             }
         }
 
@@ -34,7 +34,6 @@ namespace jurnal_poseshenia.Pages
             {
                 return Page();
             }
-
 
             if (Student.Id == 0)
             {
