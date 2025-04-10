@@ -1,52 +1,31 @@
 ﻿@page
 @model jurnal_poseshenia.Pages.StudentsModel
 @{
-   
-
 }
- 
 
-<h1>Students</h1>
+<a class="btn btn-primary mb-3" href="@Url.Page("Student", new { id = 0 })">Добавить студента</a>
 
-<h4>Student</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <span class="text-danger">*</span>
-                <label asp-for="Student.Surname" class="control-label"></label>
-                <input asp-for="Student.Surname" class="form-control" />
-                <span asp-validation-for="Student.Surname" class="text-danger"></span>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var student in Model.Students)
+    {
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">@student.Name</h5>
+                    <p class="card-text">
+                        <strong>Фамилия:</strong> @student.Surname <br>
+                        <strong>Имя:</strong> @student.Name <br>
+                        <strong>Отчество:</strong> @student.Partomymic <br>
+                         
+                    </p>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <a asp-page="Student" asp-route-id="@student.Id" class="btn btn-warning">Изменить</a>
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@student.Id">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Удалить студента?')">Удалить</button>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <span class="text-danger">*</span>
-                <label asp-for="Student.Name" class="control-label"></label>
-                <input asp-for="Student.Name" class="form-control" />
-                <span asp-validation-for="Student.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <span class="text-danger">*</span>
-                <label asp-for="Student.Partomymic" class="control-label"></label>
-                <input asp-for="Student.Partomymic" class="form-control" />
-                <span asp-validation-for="Student.Partomymic" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Student.SpecialtiId" class="control-label"></label>
-                <select asp-for="Student.SpecialtiId" class ="form-control" asp-items="ViewBag.SpecialtiId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+        </div>
+    }
 </div>
-
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

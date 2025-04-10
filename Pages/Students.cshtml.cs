@@ -1,45 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using jurnal_poseshenia.Data;
 using jurnal_poseshenia.Model;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace jurnal_poseshenia.Pages
 {
-    public class StudentsModel : PageModel
+    public class StudentsModel(ApplicationDbContext context) : PageModel
     {
-        private readonly jurnal_poseshenia.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context = context;
 
-        public StudentsModel(jurnal_poseshenia.Data.ApplicationDbContext context)
+        public List<Student> Students { get; set; } = [];
+
+        public void OnGet()
         {
-            _context = context;
+            Students = _context.Students.ToList();
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnPostDelete(int id)
         {
-        ViewData["SpecialtiId"] = new SelectList(_context.Specialtis, "Id", "Name");
-            return Page();
-        }
-
-        [BindProperty]
-        public Student Student { get; set; } = default!;
-
-        // For more information, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
+            var student = _context.Students.Find(id);
+            if (student != null)
             {
-                return Page();
+                _context.Students.Remove(student);
+                _context.SaveChanges();
             }
-
-            _context.Students.Add(Student);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            return RedirectToPage();
         }
+
     }
 }
