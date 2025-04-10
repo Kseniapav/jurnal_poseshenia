@@ -1,7 +1,16 @@
+using jurnal_poseshenia.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("JurnalDatabase"),
+        new MySqlServerVersion(new Version(8, 0, 23)) // Версия MySQL (8.0.23)
+    ));
+
 
 var app = builder.Build();
 
@@ -19,3 +28,4 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
+
