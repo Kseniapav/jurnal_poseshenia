@@ -8,15 +8,15 @@ namespace jurnal_poseshenia.Model
 
         [Required(ErrorMessage = "Укажите фамилию студента.")]
         [StringLength(100, ErrorMessage = "Фамилия студента не может быть длиннее 100 символов")]
-        public string Surname { get; set; }
+        public string? Surname { get; set; }
 
         [Required(ErrorMessage = "Укажите имя студента.")]
         [StringLength(100, ErrorMessage = "Имя студента не может быть длиннее 100 символов")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Required(ErrorMessage = "Укажите отчество студента.")]
         [StringLength(100, ErrorMessage = "Отчество студента не может быть длиннее 100 символов")]
-        public string Partomymic { get; set; }
+        public string? Partomymic { get; set; }
 
 
         public int SpecialtiId { get; set; }

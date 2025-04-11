@@ -5,6 +5,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("JurnalDatabase"),
+        new MySqlServerVersion(new Version(8, 0, 23)) // Версия MySQL (8.0.23)
+    ));
+
 
 // Настройка подключения к базе данных
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -27,3 +33,4 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
+
