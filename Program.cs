@@ -12,7 +12,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     ));
 
 
+// Настройка подключения к базе данных
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+     options.UseSqlServer(builder.Configuration.GetConnectionString("JurnalDatabase")));
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
