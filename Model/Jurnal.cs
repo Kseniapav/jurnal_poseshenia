@@ -3,6 +3,7 @@
 namespace jurnal_poseshenia.Model
 {
     public class Jurnal
+
     {
         public int Id { get; set; }
 
@@ -12,9 +13,6 @@ namespace jurnal_poseshenia.Model
 
         public int StudentId { get; set; }
         public required Student Student { get; set; }
-
-        public int SpecialtiId { get; set; }
-        public required Specialti Specialti { get; set; }
 
         [Required(ErrorMessage = "Укажите дату посещения")]
         [DataType(DataType.Date)]
