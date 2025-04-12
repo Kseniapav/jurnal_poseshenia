@@ -3,6 +3,7 @@
 namespace jurnal_poseshenia.Model
 {
     public class Jurnal
+
     {
         public int Id { get; set; }
 
