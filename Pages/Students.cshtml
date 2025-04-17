@@ -1,0 +1,30 @@
+﻿@page
+@model jurnal_poseshenia.Pages.StudentsModel
+@{
+}
+
+<a class="btn btn-primary mb-3" href="@Url.Page("Student", new { id = 0 })">Добавить студента</a>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var student in Model.Students)
+    {
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">@student.Name</h5>
+                    <p class="card-text">
+                        <strong>Фамилия:</strong> @student.Surname <br>
+                        <strong>Имя:</strong> @student.Name <br>
+                        <strong>Отчество:</strong> @student.Partomymic <br>                       
+                    </p>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <a asp-page="Student" asp-route-id="@student.Id" class="btn btn-warning">Изменить</a>
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@student.Id">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Удалить студента?')">Удалить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>
