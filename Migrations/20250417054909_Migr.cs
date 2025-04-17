@@ -8,7 +8,7 @@ namespace jurnal_poseshenia.Migrations
     /// <inheritdoc />
     public partial class Migr : Migration
     {
-        /// <inheritdoc />
+      
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
