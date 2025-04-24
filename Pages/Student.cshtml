@@ -12,27 +12,22 @@
             <form method="post" class="needs-validation" novalidate>
                 <input type="hidden" asp-for="Student.Id" />
               <div class="row">
-            <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Имя:</label>
-                <input type="text" class="form-control" asp-for="Student.Name" required />
-                <span class="text-danger" asp-validation-for="Student.Name"></span>
-            </div>
+                    <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control" asp-for="Student.Name" placeholder="Введите имя" required />
+                        <span class="text-danger" asp-validation-for="Student.Name"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control" asp-for="Student.Surname" placeholder="Введите фамилию" required />
+                        <span class="text-danger" asp-validation-for="Student.Surname"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <input type="text" class="form-control" asp-for="Student.Partomymic" placeholder="Введите отчество" />
+                        <span class="text-danger" asp-validation-for="Student.Partomymic"></span>
+                    </div>
 
             <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Фамилия:</label>
-                <input type="Surname" class="form-control" asp-for="Student.Surname" />
-                <span class="text-danger" asp-validation-for="Student.Surname"></span>
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Отчество:</label>
-                <input type="Partomymic" class="form-control" asp-for="Student.Partomymic" />
-                <span class="text-danger" asp-validation-for="Student.Partomymic"></span>
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Специальность:</label>
                 <select class="form-select" asp-for="Student.Specialti">
+                            <option value="" hidden>Выберите специальность из списка  👉 </option>
                     <option value="IT">IT</option>
                     <option value="Logistician">Логист</option>
                     <option value="Commodity specialist">Товаровед</option>
