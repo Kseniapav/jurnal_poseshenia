@@ -24,7 +24,11 @@ namespace jurnal_poseshenia.Pages
             }
             else
             {
-                Jurnal = new Jurnal();
+                Jurnal = new Jurnal
+                {
+                    Specialty = "",
+                    Student = new Student()
+                };
             }
         }
 
