@@ -1,4 +1,31 @@
 ﻿@page
-@model jurnal_poseshenia.Pages.JurnalsModel
+@model jurnal_poseshenia.Pages.JurnalModel
 @{
 }
+
+
+
+<a class="btn btn-primary mb-3" href="@Url.Page("JournalEntry", new { id = 0 })">Добавить запись</a>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var jurnal in Model.Jurnals) 
+    {
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Специальность: @jurnal.Specialty </h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Дата посещения: @jurnal.VisitDate.ToShortDateString()</h6>
+                    <p class="card-text">
+                        <strong>ID студента:</strong> @jurnal.StudentId <br>                        
+                    </p>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <a asp-page="JournalEntry" asp-route-id="@jurnal.Id" class="btn btn-warning">Изменить</a>
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@jurnal.Id">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Удалить запись из журнала?')">Удалить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>

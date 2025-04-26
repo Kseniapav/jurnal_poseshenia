@@ -2,51 +2,30 @@ using jurnal_poseshenia.Data;
 using jurnal_poseshenia.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace jurnal_poseshenia.Pages
 {
-    public class JurnalsModel : PageModel
+    public class JurnalModel(ApplicationDbContext context) : PageModel
     {
-        public JurnalsModel(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context = context;
 
-        [BindProperty]
-        public required Jurnal Jurnal { get; set; }
+        public List<Jurnal> Jurnals { get; set; } // Используем существующую модель Jurnal
 
-        public void OnGet(int id)
+        public async Task OnGetAsync()
         {
-            if (id > 0)
-            {
-                Jurnal = _context.Jurnals.FirstOrDefault(b => b.Id == id);
-            }
-            else
-            {
-                Jurnal = new Jurnal();
-            }
+            Jurnals = await _context.Jurnals.ToListAsync(); // Предполагая, что в DbContext есть DbSet<Jurnal>
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
-            if (!ModelState.IsValid)
+            var journal = await _context.Jurnals.FindAsync(id);
+            if (journal != null)
             {
-                return Page();
+                _context.Jurnals.Remove(journal);
+                await _context.SaveChangesAsync();
             }
-
-
-            if (Jurnal.Id == 0)
-            {
-                _context.Jurnals.Add(Jurnal);
-            }
-            else
-            {
-                _context.Jurnals.Update(Jurnal);
-            }
-
-            _context.SaveChanges();
-            return RedirectToPage("Jurnals");
+            return RedirectToPage();
         }
     }
 }
