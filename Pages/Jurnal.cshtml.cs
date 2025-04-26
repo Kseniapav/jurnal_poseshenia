@@ -10,7 +10,7 @@ namespace jurnal_poseshenia.Pages
     {
         private readonly ApplicationDbContext _context = context;
 
-        public IList<Jurnal> Jurnals { get; set; } // Используем существующую модель Jurnal
+        public List<Jurnal> Jurnals { get; set; } // Используем существующую модель Jurnal
 
         public async Task OnGetAsync()
         {

@@ -9,7 +9,6 @@ namespace jurnal_poseshenia.Model
 
         [Required (ErrorMessage = "Укажите наименование специальности")]
         [StringLength (100, ErrorMessage = "Название предмета не может быть длиннее 100 символов ")]
-        public required string Specialty { get; set; }
 
         public int StudentId { get; set; }
         public required Student Student { get; set; }
