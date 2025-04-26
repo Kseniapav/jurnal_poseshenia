@@ -5,11 +5,73 @@
 }
 
 
-<div class="text-center">
-    <h1 class="display-4">Добро пожаловать!</h1>
-    <p>
-        Изучите в разделе
-        <a asp-page="/Students">список студентов</a> или
-        <a asp-page="/Jurnal">журнал</a>.
-    </p>
+<div class="main-menu">
+    <h1 class="text-center mb-5">Добро пожаловать в Журнал посещения!</h1>
+
+    <div class="row justify-content-center">
+        <!-- Карточка студентов -->
+        <div class="col-md-5 mb-4">
+            <div class="feature-card student-card">
+                <div class="card-body text-center">
+                    <i class="fas fa-users fa-4x mb-4"></i>
+                    <h3>Студенты</h3>
+                    <p>Управление списком студентов и их данными</p>
+                    <a asp-page="/Students" class="btn btn-primary btn-lg rounded-pill px-4">
+                        Перейти <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Карточка журнала -->
+        <div class="col-md-5 mb-4">
+            <div class="feature-card journal-card">
+                <div class="card-body text-center">
+                    <i class="fas fa-book-open fa-4x mb-4"></i>
+                    <h3>Журнал</h3>
+                    <p>Ведение журнала успеваемости</p>
+                    <a asp-page="/Jurnal" class="btn btn-primary btn-lg rounded-pill px-4">
+                        Перейти <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+    .feature-card {
+        border: none;
+        border-radius: 15px;
+        padding: 2rem;
+        height: 100%;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .student-card {
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        color: white;
+    }
+
+    .journal-card {
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        color: white;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .btn-primary {
+        background-color: rgba(255,255,255,0.2);
+        border: 2px solid white;
+        font-weight: bold;
+    }
+
+    .btn-primary:hover {
+        background-color: white;
+        color: #121212 !important;
+    }
+</style>
