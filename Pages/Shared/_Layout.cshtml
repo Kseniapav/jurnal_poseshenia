@@ -8,21 +8,128 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Salfetka5.styles.css" asp-append-version="true" />
     <style>
-        body {
+        /* Стили для переключателя темы */
+        .theme-toggle {
+            display: inline-block;
+            position: relative;
+            width: 60px;
+            height: 30px;
+            margin-left: 10px;
+        }
+
+        #theme-switcher {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .theme-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #2c3e50;
+            border-radius: 34px;
+            transition: .4s;
+        }
+
+            .theme-slider:before {
+                content: "";
+                position: absolute;
+                height: 22px;
+                width: 22px;
+                left: 4px;
+                bottom: 4px;
+                background: white;
+                border-radius: 50%;
+                transition: .4s;
+            }
+
+        #theme-switcher:checked + .theme-slider {
+            background: #f1c40f;
+        }
+
+            #theme-switcher:checked + .theme-slider:before {
+                transform: translateX(30px);
+            }
+
+        .moon, .sun {
+            position: absolute;
+            top: 2px;
+            font-size: 18px;
+            transition: opacity 0.3s;
+        }
+
+        .moon {
+            right: 5px;
+            opacity: 1;
+        }
+
+        .sun {
+            left: 5px;
+            opacity: 0;
+        }
+
+        #theme-switcher:checked + .theme-slider .moon {
+            opacity: 0;
+        }
+
+        #theme-switcher:checked + .theme-slider .sun {
+            opacity: 1;
+        }
+
+        /* Стили для светлой темы */
+        body.light-theme {
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+
+            body.light-theme .navbar {
+                background-color: #f8f9fa;
+            }
+
+            body.light-theme .nav-link {
+                color: #212529 !important;
+            }
+
+                body.light-theme .nav-link:hover {
+                    color: #0d6efd !important;
+                }
+
+            body.light-theme footer {
+                background-color: #f8f9fa;
+                color: #212529;
+            }
+
+        /* Стили для темной темы (по умолчанию) */
+        body.dark-theme {
             background-color: #121212;
             color: white;
         }
 
-        .navbar {
-            background-color: #1e1e1e;
-            padding: 0.5rem 0;
-        }
+            body.dark-theme .navbar {
+                background-color: #1e1e1e;
+            }
 
+            body.dark-theme .nav-link {
+                color: white !important;
+            }
+
+                body.dark-theme .nav-link:hover {
+                    color: lightblue !important;
+                }
+
+            body.dark-theme footer {
+                background-color: #1e1e1e;
+                color: white;
+            }
+
+        /* Общие стили */
         .navbar-brand {
             font-size: 1.5rem;
-            color: white !important;
             text-decoration: none;
-            pointer-events: none;
             margin-right: 2rem;
             transition: transform 0.3s ease;
         }
@@ -37,7 +144,6 @@
         }
 
         .nav-link {
-            color: white !important;
             padding: 0.5rem 1rem;
             transition: all 0.3s ease;
             transform-origin: center;
@@ -45,41 +151,30 @@
         }
 
             .nav-link:hover {
-                color: lightblue !important;
-                background-color: #333;
+                background-color: rgba(0, 0, 0, 0.1);
                 border-radius: 4px;
                 transform: scale(1.08);
             }
 
-        /* Черточка между пунктами */
         .nav-divider {
             color: #666;
             padding: 0 0.2rem;
             user-select: none;
-            transition: transform 0.3s ease;
+            transition: transform 0.s ease;
         }
 
         .nav-item:hover .nav-divider {
             transform: scale(1.1);
         }
 
-        footer {
-            background-color: #1e1e1e;
-            color: white;
+        footer a {
+            transition: color 0.3s ease;
         }
-
-            footer a {
-                color: lightskyblue;
-            }
-
-                footer a:hover {
-                    color: deepskyblue;
-                }
     </style>
 </head>
-<body>
+<body class="dark-theme">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
             <div class="container">
                 <span class="navbar-brand">Salfetka5💗</span>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -104,6 +199,17 @@
                             <a class="nav-link" asp-area="" asp-page="/Privacy">Политика приватности</a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <div class="theme-toggle">
+                                <input type="checkbox" id="theme-switcher">
+                                <label for="theme-switcher" class="theme-slider">
+                                    <span class="moon">🌙</span>
+                                    <span class="sun">☀️</span>
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -114,7 +220,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer">
         <div class="container">
             &copy; 2025 - Salfetka5 - <a asp-area="" asp-page="/Privacy">Политика приватности</a>
         </div>
@@ -123,6 +229,41 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeSwitcher = document.getElementById('theme-switcher');
+            const body = document.body;
+
+            // Проверяем сохраненную тему
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+                themeSwitcher.checked = true;
+            }
+
+            // Обработчик переключения темы
+            themeSwitcher.addEventListener('change', function() {
+                if (this.checked) {
+                    body.classList.remove('dark-theme');
+                    body.classList.add('light-theme');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    body.classList.remove('light-theme');
+                    body.classList.add('dark-theme');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+
+            // Проверяем системные предпочтения (если тема не сохранена)
+            if (!savedTheme && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+                themeSwitcher.checked = true;
+            }
+        });
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
