@@ -1,6 +1,7 @@
 ﻿using jurnal_poseshenia.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using jurnal_poseshenia.Model.AuthApp;
 
 namespace jurnal_poseshenia.Data
 {
@@ -15,6 +16,7 @@ namespace jurnal_poseshenia.Data
         public DbSet<Student> Students { get; set; }//таблица Students, содержащая данные о студентах.
         public DbSet<Jurnal> Jurnals { get; set; } // таблица Jurnal, содержащая данные о специальностях и студентах на них 
         public DbSet <Specialti> Specialtis { get; set; } //таблица Specialtis, содержащая информацию о специальностях
+        public DbSet <AuthUser> AuthUsers { get; set; }
 
     }
 }
