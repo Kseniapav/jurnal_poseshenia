@@ -30,11 +30,11 @@ namespace jurnal_poseshenia.Pages.Account
 
             if (user != null)
             {
-                await Authenticate(Input.Email, user.Role); // ???????? ? ????
+                await Authenticate(Input.Email, user.Role);
                 return RedirectToPage("/Index");
             }
 
-            ModelState.AddModelError(string.Empty, "???????????? ????? ?(???) ??????");
+            ModelState.AddModelError(string.Empty, "Неверный email или пароль");
             return Page();
         }
 
@@ -43,7 +43,7 @@ namespace jurnal_poseshenia.Pages.Account
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, userName),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, role) //??????????????
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, role) 
             };
 
             var identity = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
