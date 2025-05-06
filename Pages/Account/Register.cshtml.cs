@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Authorization;
 
 namespace jurnal_poseshenia.Pages.Account
 {
+    [Authorize(Roles = "Admin")]
     public class RegisterModel : PageModel
     {
         private readonly ApplicationDbContext _context;
@@ -36,7 +38,7 @@ namespace jurnal_poseshenia.Pages.Account
                 _context.AuthUsers.Add(new AuthUser { Email = Input.Email, Password = Input.Password, Role = isFirstUser ? "Admin" : "User" });
                 await _context.SaveChangesAsync();
 
-                await Authenticate(Input.Email);
+                await Authenticate(Input.Email, Input.Role);
                 return RedirectToPage("/Index");
             }
 
@@ -44,9 +46,14 @@ namespace jurnal_poseshenia.Pages.Account
             return Page();
         }
 
-        private async Task Authenticate(string userName)
+        private async Task Authenticate(string email, string role)
         {
-            var claims = new List<Claim> { new Claim(ClaimsIdentity.DefaultNameClaimType, userName) };
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, email),
+                 new Claim(ClaimsIdentity.DefaultRoleClaimType, role)
+
+            };
             var identity = new ClaimsIdentity(claims, "ApplicationCookie");
             var principal = new ClaimsPrincipal(identity);
 
