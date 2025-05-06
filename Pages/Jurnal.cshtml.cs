@@ -2,30 +2,55 @@ using jurnal_poseshenia.Data;
 using jurnal_poseshenia.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
 namespace jurnal_poseshenia.Pages
 {
-    public class JurnalModel(ApplicationDbContext context) : PageModel
+    public class JurnalsModel : PageModel
     {
-        private readonly ApplicationDbContext _context = context;
-
-        public IList<Jurnal> Jurnals { get; set; } // Используем существующую модель Jurnal
-
-        public async Task OnGetAsync()
+        public JurnalsModel(ApplicationDbContext context)
         {
-            Jurnals = await _context.Jurnals.ToListAsync(); // Предполагая, что в DbContext есть DbSet<Jurnal>
+            _context = context;
+        }
+        private readonly ApplicationDbContext _context;
+
+        [BindProperty]
+        public required Jurnal Jurnal { get; set; }
+
+        public void OnGet(int id)
+        {
+            if (id > 0)
+            {
+                Jurnal = _context.Jurnals.FirstOrDefault(b => b.Id == id);
+            }
+            else
+            {
+                Jurnal = new Jurnal
+                {
+                    Specialty = "",
+                    Student = new Student()
+                };
+            }
         }
 
-        public async Task<IActionResult> OnPostDeleteAsync(int id)
+        public IActionResult OnPost()
         {
-            var journal = await _context.Jurnals.FindAsync(id);
-            if (journal != null)
+            if (!ModelState.IsValid)
             {
-                _context.Jurnals.Remove(journal);
-                await _context.SaveChangesAsync();
+                return Page();
             }
-            return RedirectToPage();
+
+
+            if (Jurnal.Id == 0)
+            {
+                _context.Jurnals.Add(Jurnal);
+            }
+            else
+            {
+                _context.Jurnals.Update(Jurnal);
+            }
+
+            _context.SaveChanges();
+            return RedirectToPage("Jurnals");
         }
     }
 }

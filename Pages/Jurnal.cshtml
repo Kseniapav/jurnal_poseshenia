@@ -1,32 +1,34 @@
 ﻿@page
-@using jurnal_poseshenia.Model
-@model jurnal_poseshenia.Pages.JurnalModel
+@model jurnal_poseshenia.Pages.JurnalsModel
 @{
 }
 
-
-
-<a class="btn btn-primary mb-3" href="@Url.Page("JournalEntry", new { id = 0 })">Добавить запись</a>
-
-<div class="row row-cols-1 row-cols-md-3 g-4">
-    @foreach (var jurnal in Model.Jurnals) 
-    {
-        <div class="col">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">Специальность: @jurnal.Specialty </h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Дата посещения: @jurnal.VisitDate.ToShortDateString()</h6>
-                    <p class="card-text">
-                        <strong>ID студента:</strong> @jurnal.StudentId <br>                        
-                    </p>
-                </div>
-                <div class="card-footer d-flex justify-content-between">
-                    <a asp-page="JournalEntry" asp-route-id="@jurnal.Id" class="btn btn-warning">Изменить</a>
-                    <form method="post" asp-page-handler="Delete" asp-route-id="@jurnal.Id">
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Удалить запись из журнала?')">Удалить</button>
-                    </form>
-                </div>
-            </div>
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h4 class="mb-0">Запись в журнале</h4>
         </div>
-    }
+        <div class="card-body p-4">
+            <form method="post" class="needs-validation" novalidate>
+                <input type="hidden" asp-for="Jurnal.Id" />
+                <div class="row">                                                        
+                    <div class="col-md-6 mb-3">
+                        <select class="form-select" asp-for="Jurnal.Specialty">
+                            <option value="" hidden>Выберите специальность из списка  👉 </option>
+                            <option value="IT">IT</option>
+                            <option value="Logistician">Логист</option>
+                            <option value="Commodity specialist">Товаровед</option>
+                            <option value="Lawyer">Юрист</option>
+                            <option value="Electrician">Электрик</option>
+                            <option value="Accountant">Бухгалтер</option>
+                        </select>
+                    </div>
+                    <div class="d-flex gap-2 justify-content-center mt-4">
+                        <button type="submit" class="btn btn-success px-4">Сохранить</button>
+                        <a asp-page="/Students" class="btn btn-outline-secondary px-4">Отмена</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
