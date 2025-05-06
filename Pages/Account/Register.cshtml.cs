@@ -38,22 +38,17 @@ namespace jurnal_poseshenia.Pages.Account
                 _context.AuthUsers.Add(new AuthUser { Email = Input.Email, Password = Input.Password, Role = isFirstUser ? "Admin" : "User" });
                 await _context.SaveChangesAsync();
 
-                await Authenticate(Input.Email, Input.Role);
+                await Authenticate(Input.Email);
                 return RedirectToPage("/Index");
             }
 
-            ModelState.AddModelError(string.Empty, "????? ???????????? ??? ??????????");
+            ModelState.AddModelError(string.Empty, "Ой! Произошла ошибка.");
             return Page();
         }
 
-        private async Task Authenticate(string email, string role)
+        private async Task Authenticate(string userName)
         {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, email),
-                 new Claim(ClaimsIdentity.DefaultRoleClaimType, role)
-
-            };
+            var claims = new List<Claim> { new Claim(ClaimsIdentity.DefaultNameClaimType, userName) };
             var identity = new ClaimsIdentity(claims, "ApplicationCookie");
             var principal = new ClaimsPrincipal(identity);
 
