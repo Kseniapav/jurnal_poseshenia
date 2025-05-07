@@ -44,7 +44,6 @@ namespace jurnal_poseshenia.Pages.Account
             ModelState.AddModelError(string.Empty, "Ой! Произошла ошибка.");
             return Page();
         }
-
         private async Task Authenticate(string userName)
         {
             var claims = new List<Claim> { new Claim(ClaimsIdentity.DefaultNameClaimType, userName) };
