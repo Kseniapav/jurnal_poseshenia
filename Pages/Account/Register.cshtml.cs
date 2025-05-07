@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace jurnal_poseshenia.Pages.Account
 {
-    [Authorize(Roles = "Admin")]
     public class RegisterModel : PageModel
     {
         private readonly ApplicationDbContext _context;
