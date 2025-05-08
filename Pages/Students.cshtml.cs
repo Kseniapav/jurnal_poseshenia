@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace jurnal_poseshenia.Pages
 {
+
     public class StudentsModel(ApplicationDbContext context) : PageModel
     {
         private readonly ApplicationDbContext _context = context;
