@@ -25,21 +25,21 @@
                         <span class="text-danger" asp-validation-for="Student.Partomymic"></span>
                     </div>
 
-            <div class="col-md-6 mb-3">
-                <select class="form-select" asp-for="Student.Specialti">
-                            <option value="" hidden>Выберите специальность из списка  👉 </option>
-                    <option value="IT">IT</option>
-                    <option value="Logistician">Логист</option>
-                    <option value="Commodity specialist">Товаровед</option>
-                    <option value="Lawyer">Юрист</option>
-                    <option value="Electrician">Электрик</option>
-                    <option value="Accountant">Бухгалтер</option>
-                </select>
-            </div>
-             <div class="d-flex gap-2 justify-content-center mt-4">
-                    <button type="submit" class="btn btn-success px-4">Сохранить</button>
-                    <a asp-page="/Students" class="btn btn-outline-secondary px-4">Отмена</a>
-             </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Факультет:</label>
+                        <select class="form-select" asp-for="Student.Specialti">
+                            <option value="IT">IT</option>
+                            <option value="Logistician">Логист</option>
+                            <option value="Commodity specialist">Товаровед</option>
+                            <option value="Lawyer">Юрист</option>
+                            <option value="Electrician">Электрик</option>
+                            <option value="Accountant">Бухгалтер</option>
+                        </select>
+                    </div>
+                    <div class="d-flex gap-2 justify-content-center mt-4">
+                        <button type="submit" class="btn btn-success px-4">Сохранить</button>
+                        <a asp-page="/Students" class="btn btn-outline-secondary px-4">Отмена</a>
+                    </div>
                </div>
             </form>
         </div>

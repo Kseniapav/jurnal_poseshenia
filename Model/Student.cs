@@ -19,7 +19,7 @@ namespace jurnal_poseshenia.Model
         public string? Partomymic { get; set; }
 
 
-        public int SpecialtiId { get; set; }
+
         [Required(ErrorMessage = "Укажите специальность.")]
         public Specialti? Specialti { get; set; }
 

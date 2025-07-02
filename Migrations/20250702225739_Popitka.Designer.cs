@@ -12,8 +12,8 @@ using jurnal_poseshenia.Data;
 namespace jurnal_poseshenia.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250417054909_Migr")]
-    partial class Migr
+    [Migration("20250702225739_Popitka")]
+    partial class Popitka
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,29 @@ namespace jurnal_poseshenia.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("jurnal_poseshenia.Model.AuthApp.AuthUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuthUsers");
+                });
 
             modelBuilder.Entity("jurnal_poseshenia.Model.Jurnal", b =>
                 {
