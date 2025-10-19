@@ -18,10 +18,7 @@ namespace jurnal_poseshenia.Model
         [StringLength(100, ErrorMessage = "Отчество студента не может быть длиннее 100 символов")]
         public string? Partomymic { get; set; }
 
-
-        public int SpecialtiId { get; set; }
-        [Required(ErrorMessage = "Укажите специальность.")]
-        public Specialti? Specialti { get; set; }
+        public string? Specialti { get; set; }
 
     }
 }
