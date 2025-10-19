@@ -2,55 +2,56 @@ using jurnal_poseshenia.Data;
 using jurnal_poseshenia.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace jurnal_poseshenia.Pages
 {
     public class JurnalsModel : PageModel
     {
+        private readonly ApplicationDbContext _context;
+
         public JurnalsModel(ApplicationDbContext context)
         {
             _context = context;
         }
-        private readonly ApplicationDbContext _context;
 
         [BindProperty]
-        public required Jurnal Jurnal { get; set; }
+        public Jurnal Jurnal { get; set; } = new();
 
-        public void OnGet(int id)
+        public List<SelectListItem> StudentList { get; set; } = new();
+
+        public async Task OnGetAsync(int id)
         {
+            StudentList = await _context.Students
+                .Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = $"{s.Surname} {s.Name} {s.Partomymic}"
+                })
+                .ToListAsync();
+
             if (id > 0)
             {
-                Jurnal = _context.Jurnals.FirstOrDefault(b => b.Id == id);
-            }
-            else
-            {
-                Jurnal = new Jurnal
-                {
-                    Specialty = "",
-                    Student = new Student()
-                };
+                Jurnal = await _context.Jurnals.FirstOrDefaultAsync(b => b.Id == id) ?? new Jurnal();
             }
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
+                await OnGetAsync(Jurnal.Id); // чтобы список студентов не потерялся
                 return Page();
             }
 
-
             if (Jurnal.Id == 0)
-            {
                 _context.Jurnals.Add(Jurnal);
-            }
             else
-            {
                 _context.Jurnals.Update(Jurnal);
-            }
 
-            _context.SaveChanges();
-            return RedirectToPage("Jurnals");
+            await _context.SaveChangesAsync();
+            return RedirectToPage("/Jurnals");
         }
     }
 }

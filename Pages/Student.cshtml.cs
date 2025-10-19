@@ -2,6 +2,8 @@ using jurnal_poseshenia.Data;
 using jurnal_poseshenia.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace jurnal_poseshenia.Pages
 {
@@ -14,39 +16,31 @@ namespace jurnal_poseshenia.Pages
         private readonly ApplicationDbContext _context;
 
         [BindProperty]
-        public required Student Student { get; set; }
+        public required Student Student { get; set; } = new Student();
+        public List<SelectListItem> Specialties { get; set; } = new();
 
-        public void OnGet(int id)
+        public async Task OnGetAsync()
         {
-            if (id > 0)
-            {
-                Student = _context.Students.FirstOrDefault(b => b.Id == id);
-            }
-            else
-            {
-                Student = new Student();
-            }
+            Specialties = await _context.Specialtis
+                .Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.Name
+                })
+                .ToListAsync();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
+                await OnGetAsync(); // перезаполнить список при ошибке
                 return Page();
             }
 
-
-            if (Student.Id == 0)
-            {
-                _context.Students.Add(Student);
-            }
-            else
-            {
-                _context.Students.Update(Student);
-            }
-
-            _context.SaveChanges();
-            return RedirectToPage("Students");
+            _context.Students.Add(Student);
+            await _context.SaveChangesAsync();
+            return RedirectToPage("/Students");
         }
     }
 }
