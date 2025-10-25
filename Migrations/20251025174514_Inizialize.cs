@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace jurnal_poseshenia.Migrations
 {
     /// <inheritdoc />
-    public partial class Popitka : Migration
+    public partial class Inizialize : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,8 +32,7 @@ namespace jurnal_poseshenia.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    TermОfStudy = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -49,17 +48,11 @@ namespace jurnal_poseshenia.Migrations
                     Surname = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Partomymic = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    SpecialtiId = table.Column<int>(type: "int", nullable: false)
+                    Specialti = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Students", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Students_Specialtis_SpecialtiId",
-                        column: x => x.SpecialtiId,
-                        principalTable: "Specialtis",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -87,11 +80,6 @@ namespace jurnal_poseshenia.Migrations
                 name: "IX_Jurnals_StudentId",
                 table: "Jurnals",
                 column: "StudentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Students_SpecialtiId",
-                table: "Students",
-                column: "SpecialtiId");
         }
 
         /// <inheritdoc />
@@ -104,10 +92,10 @@ namespace jurnal_poseshenia.Migrations
                 name: "Jurnals");
 
             migrationBuilder.DropTable(
-                name: "Students");
+                name: "Specialtis");
 
             migrationBuilder.DropTable(
-                name: "Specialtis");
+                name: "Students");
         }
     }
 }

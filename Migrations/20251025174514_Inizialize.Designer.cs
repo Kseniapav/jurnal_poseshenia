@@ -12,8 +12,8 @@ using jurnal_poseshenia.Data;
 namespace jurnal_poseshenia.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250702225739_Popitka")]
-    partial class Popitka
+    [Migration("20251025174514_Inizialize")]
+    partial class Inizialize
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,12 +83,7 @@ namespace jurnal_poseshenia.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("TermОfStudy")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -113,8 +108,8 @@ namespace jurnal_poseshenia.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("SpecialtiId")
-                        .HasColumnType("int");
+                    b.Property<string>("Specialti")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Surname")
                         .IsRequired()
@@ -122,8 +117,6 @@ namespace jurnal_poseshenia.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SpecialtiId");
 
                     b.ToTable("Students");
                 });
@@ -137,17 +130,6 @@ namespace jurnal_poseshenia.Migrations
                         .IsRequired();
 
                     b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("jurnal_poseshenia.Model.Student", b =>
-                {
-                    b.HasOne("jurnal_poseshenia.Model.Specialti", "Specialti")
-                        .WithMany()
-                        .HasForeignKey("SpecialtiId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Specialti");
                 });
 #pragma warning restore 612, 618
         }
