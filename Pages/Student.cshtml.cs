@@ -19,7 +19,7 @@ namespace jurnal_poseshenia.Pages
         public required Student Student { get; set; } = new Student();
         public List<SelectListItem> Specialties { get; set; } = new();
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             Specialties = await _context.Specialtis
                 .Select(s => new SelectListItem
@@ -28,17 +28,48 @@ namespace jurnal_poseshenia.Pages
                     Text = s.Name
                 })
                 .ToListAsync();
+
+            if (id == null || id == 0)
+            {
+                Student = new Student();
+                return Page();
+            }
+
+            Student = await _context.Students.FindAsync(id);
+
+            if (Student == null)
+            {
+                return NotFound();
+            }
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
-                await OnGetAsync(); // перезаполнить список при ошибке
+                Specialties = await _context.Specialtis
+                    .Select(s => new SelectListItem
+                    {
+                        Value = s.Id.ToString(),
+                        Text = s.Name
+                    })
+                    .ToListAsync();
                 return Page();
             }
 
-            _context.Students.Add(Student);
+            if (Student.Id == 0)
+            {
+                // Добавление нового студента
+                _context.Students.Add(Student);
+            }
+            else
+            {
+                // Обновление существующего студента
+                _context.Students.Update(Student);
+            }
+
             await _context.SaveChangesAsync();
             return RedirectToPage("/Students");
         }
