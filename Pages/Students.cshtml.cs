@@ -14,7 +14,7 @@ namespace jurnal_poseshenia.Pages
 
         public void OnGet()
         {
-            Students = _context.Students.ToList(); 
+            Students = _context.Students.ToList();
         }
 
         public IActionResult OnPostDelete(int id)
